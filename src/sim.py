@@ -53,12 +53,11 @@ class SIMULATION():
 
         """ Method: A must call to fill the empty experiment sheet """
 
-        self.dataset = xr.Dataset({'Running_Variables':\
-                self.doe['Running_Variables'],'Results':\
-                xr.DataArray(results,\
+        self.doe['Results'] = xr.DataArray(results,\
                 coords=[np.arange(0,self.num),self.keys],\
-                dims=['doe','outputs'])})
+                dims=['doe','outputs'])
 
+        self.dataset = self.doe
 
     def run_experiment(self, _id):
 

@@ -13,8 +13,10 @@ class SimpleTraining(MACHINELEARNING):
         self.config = config
         self.split = self.config.get('split')
 
-        self.network = config['additional']['network'](**config['additional']\
+        self.network = config['additional']['network'](config['additional']\
                 ['network_parameters'])
+
+        print(self.network)
         self.network.to(self.device)
         self.optimizer = config['additional']['optimizer']\
                 (self.network.parameters(),\

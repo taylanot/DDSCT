@@ -32,6 +32,8 @@ def simulate(doe, config, num_workers=None, path=None):
 
     if config['essentials']['application'] == 'test':
         from .sim import test
+    if config['essentials']['application'] == 'SolidMechanicsTools':
+        from .sim import SolidMechanicsTools
     else:
         raise Exception('Your sampling application is not registered!')
 
@@ -40,7 +42,7 @@ def simulate(doe, config, num_workers=None, path=None):
     except:
         raise Exception('Make sure your your model is in the application file!')
 
-    instance = klass(doe, config)
+    instance = klass(doe, config, path)
     pool = Pool(processes=num_workers)
     
     print('-----------------------------------------------------')
@@ -80,17 +82,15 @@ def train(dataset, config, path=None):
     instance.adjust_dataset()
     results = instance.train()
     instance.put_results(results)
+
     print(instance)
 
     if path == None:
         instance.save_result('dataset.ml')
         instance.save_model('trained'+str(config['essentials']['model'])+'.ml')
     else:
-        instance.save_result(path+'dataset.ml')
-        instance.save_model(path+'trained'+str(config['essentials']['model'])+'.ml')
+        instance.save_result(path+'/dataset.ml')
+        instance.save_model(path+'/trained'+str(config['essentials']['model'])+'.ml')
 
  
-    return instance.dataset, instance
-
-
     return instance.dataset, instance
