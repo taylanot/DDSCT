@@ -16,7 +16,6 @@ class SimpleTraining(MACHINELEARNING):
         self.network = config['additional']['network'](config['additional']\
                 ['network_parameters'])
 
-        print(self.network)
         self.network.to(self.device)
         self.optimizer = config['additional']['optimizer']\
                 (self.network.parameters(),\
