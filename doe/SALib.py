@@ -1,7 +1,7 @@
 from SALib.sample import sobol_sequence
 from ..src.doe import DOE
 
-class SALib(DOE):
+class SALibSampler(DOE):
     """
         DOE-Module wrap for SALib 
     """
@@ -13,7 +13,15 @@ class SALib(DOE):
         super().__init__(config)                  # Initialize base-class
 
         self.method = config['additional']['method']
-           
+
+    def sample(self):
+
+        """ Method: Overwrite sampling method """
+
+        func = getattr(self,'_'+self.method) # Select your method of sampling
+        self.data = func()
+        
+
     def _sobol(self):
 
         """ Method: Sobol sequence generator """

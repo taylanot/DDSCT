@@ -15,7 +15,7 @@ class DOE():
         self.config= config                             
         self.descriptors = config['essentials']['descriptors']
         self.application = config['essentials']['application']        
-        self.method = config['essentials']['model']        
+        self.model = config['essentials']['model']        
         self.dim = len(self.descriptors)                   
         self.num = config['essentials']['experiment_number']
         self.keys = list(self.descriptors.keys())          
@@ -31,7 +31,7 @@ class DOE():
         print('-----------------------------------------------------')
         print('\n')
         print('Sampling Application :',self.application)
-        print('Sampling Method      :',self.method)
+        print('Sampling Model       :',self.model)
         print('Number of Descriptors:',self.dim)
         print('Number of Experiments:',self.num)
         print('DOE Dataset          :',self.dataset)
@@ -46,11 +46,15 @@ class DOE():
     def sample(self):
 
         """ Method: Method for Sampling """  
+        pass 
 
-        func = getattr(self,'_'+self.method) # Select your method of sampling
-        data = func()
+    def put_results(self):
+
+        """ Method: DOE Dataset Creation """  
+
+    
         self.dataset = xr.Dataset({'Running_Variables':\
-                xr.DataArray(data,coords=[np.arange(0,self.num),self.keys],\
+                xr.DataArray(self.data,coords=[np.arange(0,self.num),self.keys],\
                 dims=['doe','descriptor'])})
         return self.dataset
 

@@ -12,13 +12,15 @@ def sample(config, path=None):
         raise Exception('Your sampling application is not registered!')
     
     try:
-        klass = eval(config['essentials']['application']+'.'+config['essentials']['application'])
+        klass = eval(config['essentials']['application']+'.'+config['essentials']['model'])
     except:
         raise Exception('Make sure your your model is in the application file!')
 
     instance = klass(config)
-    sampled = instance.sample()
+    instance.sample()
+    sampled = instance.put_results()
     print(instance)
+
     if path == None:
         instance.save('dataset.doe')
     else:
