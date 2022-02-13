@@ -23,7 +23,7 @@ class SimpleTraining(MACHINELEARNING):
 
         self.loss = config['additional']['loss']()
         self.epoch = config['additional']['epoch']
-        self.batch_size = 10000
+        self.batch_size = config['additional']['batch_size']
     
     def adjust_dataset(self):
 

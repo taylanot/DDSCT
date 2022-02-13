@@ -64,4 +64,4 @@ class MACHINELEARNING():
         
         """ Method: To save the result"""
         
-        self.dataset.to_netcdf(name)
+        self.results.to_netcdf(name)
