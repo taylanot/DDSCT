@@ -12,7 +12,8 @@ import os
 from ..src.sim import SIMULATION
 import itertools, sys
 import xarray as xr
-spinner = itertools.cycle(['-', '/', '|', '\\'])
+from tqdm import tqdm 
+
 
 set_log_level(30)
 class Bessa2017(SIMULATION):
@@ -23,13 +24,11 @@ class Bessa2017(SIMULATION):
 
         dirs = np.empty(self.num,dtype=object)
                 
-        sys.stdout.write('Creating the RVEs...')
-        for i in (range(self.num)):
-            sys.stdout.write(next(spinner))   
-            sys.stdout.flush()                
-            sys.stdout.write('\b')            
+        print('-----------------------------------------------------')
+        print('                RVE CREATION PROGRESS                ')
+        print('-----------------------------------------------------')
+        for i in tqdm(range(self.num)):
             dirs[i] = rves.run_experiment(i)
-        sys.stdout.write('\n')
 
         self.doe['RVE_Directory'] = xr.DataArray(dirs,\
                 coords=[np.arange(0,self.num)],\

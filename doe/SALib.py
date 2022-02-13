@@ -1,5 +1,6 @@
 from SALib.sample import sobol_sequence
 from ..src.doe import DOE
+import numpy as np
 
 class SALibSampler(DOE):
     """
@@ -29,7 +30,7 @@ class SALibSampler(DOE):
         points = sobol_sequence.sample(self.num,self.dim)                   # Create [0,1] self.dim-dimnesional hypercube
         for i, bound in enumerate(self.bounds):                  # Stretch the hypercube towards your bounds
             points[:,i] = points[:,i] * (bound[1] - bound[0]) + bound[0]    
-        return points
+        return np.round(points,4)
 
     
         
